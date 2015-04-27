@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en" ng-app="competition">
+    <head>
+      <meta charset="utf-8"/>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <meta name="description" content=""/>
+      <meta name="author" content=""/>
+
+
+    <title>Competitions</title>
+      <LINK rel="stylesheet" type="text/css" href="styles/competition.css" media="screen"></link>
+      <script data-require="jquery@*" data-semver="2.1.3" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+      <script type = "text/javascript" src = "js/competition.js"></script>
+      <script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+      <script language = "javascript" type = "text/javascript" src = "js/gruntfile.js"></script>
+      <script language = "javascript" type = "text/javascript" src = "js/jquery.animateNumber.js"></script>
+      <script language = "javascript" type = "text/javascript" src = "js/jquery.animateNumber.min.js"></script>
+      <script language = "javascript" type = "text/javascript" src = "js/jquery.knob.js"></script>
+      <script language = "javascript" type = "text/javascript" src = "js/jquery.flot.axislabels.js"></script>
+      <!--<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>-->
+      <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+      <script data-require="ui-bootstrap@*" data-semver="0.10.0" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    </head>
+</head>
+<body>
+    <div class = "content-container">
+        <div class = "content-body">
+            <div class = "content-body-inner-container" ng-controller="chosenOption as option">
+                <div class = "content-body-header">
+                    <div class = "content-body-header-container">
+                      <!--
+                        <div class = "content-body-header-option" id = "dashboard" ng-click="selectOption('dashboard')">
+                            Dashboard
+                        </div>
+                         -->
+                        <div class = "content-body-header-option" id = "currentCompetition" ng-click="selectOption('currentCompetition')">
+                            Current Competitions
+                        </div>
+                        <div class = "content-body-header-option-right">
+                            <div class = "content-body-header-option-box"  ng-click="selectOption('newCompetition')">
+                                New Competition
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 
+                <div class = "info-content-container" ng-show="isSelectedOption('dashboard')">
+                </div>
+                -->
+                <div class = "info-content-container" ng-animate="'animate'" ng-show="isSelectedOption('currentCompetition')">
+                <div class ="chart-content">
+                  <div class = "chart-title">
+                    My Team's Competitions Dashboard
+                  </div>
+                  <div class = "chart-meta-container">
+                    <div class = "chart-meta-data-container chart-meta-data-container-margin">
+                      <div class = "chart-meta-title-container">
+                        Competitions Completed
+                      </div>
+                      <div class = "chart-meta-data-inside-container">
+                        <div class = "chart-meta-data-inside-team" id = "competition-completed">
+                          <div class = "chart-meta-data-inside-average">
+                            Average: 54
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "chart-meta-data-container chart-meta-data-container-margin">
+                      <div class = "chart-meta-title-container">
+                        Points Accumulated
+                      </div>
+                      <div class = "chart-meta-data-inside-container">
+                        <div class = "chart-meta-data-inside-team" id = "points-accumulated">
+                          <div class = "chart-meta-data-inside-average">
+                            Average: 2821
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "chart-meta-data-container">
+                      <div class = "chart-meta-title-container">
+                        Avg Place In Competitions
+                      </div>
+                      <div class = "chart-meta-data-inside-container">
+                        <div class = "chart-meta-data-inside-team"  id = "avg-place-in-comp">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class = "comp-chart-container-title">
+                    <div class = "comp-chart-title">
+                      Current Competition Completion (%)
+                    </div>
+                    <!--
+                    <div class = "chart-legend">
+                      <div class = "chart-legend-value-container">
+                        <div class = "chart-legend-color" style = "background-color: #6bd16b">
+                        </div>
+                        <div class = "chart-legend-value">
+                          : My Team
+                        </div>
+                      </div>
+                      <div class = "chart-legend-value-container">
+                        <div class = "chart-legend-color" style = "background-color: #ff4866">
+                        </div>
+                        <div class = "chart-legend-value">
+                          : John Anderson's Team
+                        </div>
+                      </div>
+                      <div class = "chart-legend-value-container">
+                        <div class = "chart-legend-color" style = "background-color: #2f80e7">
+                        </div>
+                        <div class = "chart-legend-value">
+                          : Peter Gilligan's Team
+                        </div>
+                      </div>
+                      <div class = "chart-legend-value-container">
+                        <div class = "chart-legend-color" style = "background-color: #808080">
+                        </div>
+                        <div class = "chart-legend-value">
+                          : Average
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  -->
+                  <div class="demo-container">
+                    <chart class = "competitions-chart" ng-model='data'></chart>        
+                  </div>
+                </div>
+              </div>
+                <div class = "competitions-header-info">
+                    <div class = "competitions-container-large">
+                        Competition Title
+                    </div>
+                    <div class = "competitions-container-really-small">
+                        Reward Type
+                    </div>
+                    <div class = "competitions-container-medium">
+                        Activity
+                    </div>
+                    <div class = "competitions-container-small extra-margin">
+                        Goal
+                    </div>
+                    <div class = "competitions-container-small">
+                        Time Remaining
+                    </div>                    
+                </div>
+                <div class = "competition-container" ng-repeat="competition in parseCompetitions">
+                  <div class = "none" ng-click = "selectedCompetitionRow(competition.Id); selectedCompetitionType(competition.Activity_Value__c, competition.Reward_Type__c); selectOption('specificComp');">
+                    <div class = "competitions-container-large">
+                      {{competition.Competition_Name_Short}}
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Reward_Type__c === 'Score')">
+                      <img src="images/score.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Reward_Type__c === 'Spiff')">
+                      <img src="images/spiff.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Activity_Value__c === 'Sales Calls')">
+                      <img src="images/salescalls.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Activity_Value__c === 'Sales Emails')">
+                      <img src="images/salesemails.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Activity_Value__c === 'Revenue Closed')">
+                      <img src="images/revenueclosed.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-medium-image" ng-show="(competition.Activity_Value__c === 'Number of Converted Opptys')">
+                      <img src="images/convertedoppty.png" alt="HTML5 Icon" style="width:50px;height:50px">
+                    </div>
+                    <div class = "competitions-container-small" style="padding-left:10px;" ng-show= "(competition.Reward_Type__c === 'Spiff')">
+                      {{competition.Attainment_Goal__c}}
+                    </div> 
+                    <div class = "competitions-container-small" style="padding-left:10px;" ng-show= "(competition.Reward_Type__c === 'Score')">
+                      {{competition.Attainment_Goal__c}} points
+                    </div> 
+                    <div class = "competitions-container-small" id = "{{competition.Id}}" style="padding-left:10px;">
+                      {{competition.Time_Remaining__c | filter:updateColor(competition.Time_Remaining__c, competition.Id)}}d {{competition.Time_Remaining_Remainder}}h
+                    </div>
+                  </div>
+                </div>    
+              </div>
+
+              <!-- Choosing a specific competition record -->
+
+              <div class = "competition" ng-show="isSelectedOption('specificComp')">
+                <div class = "competition-record-header">
+                  <div class = "competition-record-header-title">
+                    Competition: {{chosenCompetitionRecord.Name}}
+                  </div>
+                  <div class = "competition-record-header-return" ng-click="returnToList()">
+                    Return to List
+                  </div>
+                </div>
+              <div class = "competition-record-container" id = "{{chosenCompetitionRecord.id}}">
+                <div class = "competition-area-title">
+                  Competition Information
+                </div>
+                <div class = "competition-record-column-container">
+                  <div class = "competition-record-column">
+                    <!--
+                    <div class = "competition-record-field-container">
+                      <div class = "competition-record-title-field">
+                        Created By:
+                      </div>
+                      <div class = "competition-record-field">
+                        {!getOwnerName}
+                      </div>
+                    </div>
+                  -->
+                    <div class = "competition-record-field-container">
+                      <div class = "competition-record-title-field">
+                        Start Date:
+                      </div>
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Start_Date__c}}
+                      </div>
+                    </div>
+                    <div class = "competition-record-field-container">  
+                      <div class = "competition-record-title-field">
+                        End Date:
+                      </div>                    
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.End_Date__c}}
+                      </div>
+                    </div>
+                    <div class = "competition-record-field-container">
+                      <div class = "competition-record-title-field">
+                        Time Remaining:
+                      </div>                      
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Time_Remaining__c}}d {{chosenCompetitionRecord.Time_Remaining_Remainder}}h
+                      </div>
+                    </div>
+                  </div>
+                  <div class = "competition-record-column">
+                    <div class = "competition-record-field-container">
+                      <div class = "competition-record-title-field">
+                        Activity Monitored:
+                      </div>
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Activity_Value__c}}
+                      </div>
+                    </div>
+                    <div class = "competition-record-field-container">                        
+                      <div class = "competition-record-title-field">
+                        Type of Reward:
+                      </div>                      
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Reward_Type__c}}
+                      </div>
+                    </div>
+                    <div class = "competition-record-field-container">
+                      <div class = "competition-record-title-field">
+                        Goal: 
+                      </div>                      
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Attainment_Goal__c}}
+                      </div>
+                    </div>
+                    <div class = "competition-record-field-container">  
+                      <div class = "competition-record-title-field">
+                        Activity Score:
+                      </div>                      
+                      <div class = "competition-record-field">
+                        {{chosenCompetitionRecord.Increase_Score_By__c}}
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                <div class = "competition-record-description-container">
+                  <div class = "competition-record-title-description">
+                    Description:
+                  </div>
+                  <div class = "competition-record-description">
+                    {{chosenCompetitionRecord.Description__c}}                    
+                  </div>
+                </div>
+              </div>
+              <div style = "margin-bottom: 50px;" class = "competition-record-container" id = "{{chosenCompetitionRecord.id}}">
+                <div class = "competition-area-title">
+                  Your Team
+                </div>
+                <div class ="comp-chart-content">
+                  <div class = "single-comp-chart-title">
+                    My Team's Dashboard
+                  </div>
+                  <personal-dashboard></personal-dashboard>
+                </div>
+              </div>
+
+              <div style = "margin-bottom: 50px;" class = "competition-record-container" id = "{{chosenCompetitionRecord.id}}">
+              <div class = "competition-area-title">
+                Competition Leaderboard
+              </div>
+              <div class ="comp-chart-content">
+                <div class = "single-comp-chart-title">
+                  {{compType}} Dashboard
+                </div>
+                <div class = "competition-chart-container">
+                  <updatey-ticks></updatey-ticks>
+                  <div class="single-comp-chart-container" id = "comp-chart-container">
+                    <comp-chart class = "competition-chart" ng-model='compData'></comp-chart>    
+                  </div>
+                </div>
+                <updatex-ticks></updatex-ticks>
+              </div>
+              <div class = "single-comp-chart-title">
+                <div class = "leaderboard-title">
+                  Leaderboard
+                </div>
+                <div class = "filter-form">
+                </div>
+              </div>
+              <div class = "member-container" ng-show="isSelectedCompetitionType('Revenue Closed', 'Spiff')"> 
+                <div class = "output-header">
+                  <div class = "output-place" style = "margin-left:15px">
+                    Place
+                  </div>
+                  <div class = "output-name" style = "padding-left:55px;">
+                    Sales Rep Name
+                  </div>
+                  <div class = "output-title" style = "padding-left: 40px;">
+                    Revenue Closed
+                  </div>
+                  <div class = "output-title" style = "padding-left: 40px;">
+                    Manager
+                  </div>
+                  <div class = "output-trend" style = "padding-left: 40px">
+                    Trending
+                  </div>
+                </div>
+                <div class = "output-person-leaderboard-container" ng-repeat= "member in chosenCompetitionRecordMembers">    
+                  <div class = "output-person-leaderboard" id="{!compMem.member.Id}">
+                      <div class = "output-place" style = "margin-left:15px">
+                        {{member.place}}
+                      </div>
+                      <div class = "output-image">
+                        <img ng-src="{{member.Photo}}" />
+                      </div>                            
+                      <div class = "output-name">
+                        {{member.Name}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Dollars}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Manager_Name}}
+                      </div>    
+                      <div class = "output-trend">
+                        <img id = "flame-image" ng-src="{{member.Flames == '1' && 'images/flameon1.png' || member.Flames == '2' && 'images/flameon2.png' || member.Flames == '3' && 'images/flameon3.png' || 'images/flameon0.png'}}"/>
+                      </div> 
+                  </div>
+                </div>
+              </div>
+              <div class = "member-container" ng-show="isSelectedCompetitionType('', 'Score')"> 
+                <div class = "output-header">
+                  <div class = "output-place" style = "margin-left:15px">
+                    Place
+                  </div>
+                  <div class = "output-name" style = "padding-left:55px;">
+                    Sales Rep Name
+                  </div>
+                  <div class = "output-title" style = "margin-left: 40px;">
+                    Total Score
+                  </div>
+                  <div class = "output-title">
+                    Manager
+                  </div>
+                  <div class = "output-trend">
+                    Trending
+                  </div>
+                </div>
+                <div  ng-repeat= "member in chosenCompetitionRecordMembers">    
+                  <div class = "output-person-leaderboard" id="{!compMem.member.Id}">
+                      <div class = "output-place" style = "margin-left:15px">
+                        {{member.place}}
+                      </div>
+                      <div class = "output-image">
+                        <img ng-src="{{member.Photo}}" />
+                      </div>                            
+                      <div class = "output-name">
+                        {{member.Name}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Total_Points}}/{{member.Total_Points_Needed}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Manager_Name}}
+                      </div>         
+                      <div class = "output-trend">
+                        <img id = "flame-image" ng-src="{{member.Flames == '1' && 'images/flameon1.png' || member.Flames == '2' && 'images/flameon2.png' || member.Flames == '3' && 'images/flameon3.png' || 'images/flameon0.png'}}"/>
+                      </div> 
+                  </div>
+                </div>
+              </div>
+              <div class = "member-container" ng-show="isSelectedCompetitionType('', 'Spiff')"> 
+                <div class = "output-header">
+                  <div class = "output-place" style = "margin-left:15px">
+                    Place
+                  </div>
+                  <div class = "output-name" style = "padding-left:55px;">
+                    Sales Rep Name
+                  </div>
+                  <div class = "output-title">
+                    # of Activities
+                  </div>
+                  <div class = "output-title">
+                    Manager
+                  </div>
+                  <div class = "output-trend">
+                    Trending
+                  </div>
+                </div>
+                <div  ng-repeat= "member in chosenCompetitionRecordMembers">    
+                  <div class = "output-person-leaderboard" id="{!compMem.member.Id}">
+                      <div class = "output-place" style = "margin-left:15px">
+                        {{member.place}}
+                      </div>
+                      <div class = "output-image">
+                        <img ng-src="{{member.Photo}}" />
+                      </div>                            
+                      <div class = "output-name">
+                        {{member.Name}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Number_of_Activities}}
+                      </div>
+                      <div class = "output-title">
+                        {{member.Manager_Name}}
+                      </div>  
+                      <div class = "output-trend" id = "flames">
+                        <img id = "flame-image" ng-src="{{member.Flames == '1' && 'images/flameon1.png' || member.Flames == '2' && 'images/flameon2.png' || member.Flames == '3' && 'images/flameon3.png' || 'images/flameon0.png'}}"/>
+                      </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- This is the creation of a new competition -->
+
+            <div class = "info-content-container" ng-controller="formCtrl" ng-show="isSelectedOption('newCompetition')">
+              <div class = "progress-bar-form">
+                <div class = "progress-bar-value" id = "progress-bar">
+                </div>
+                <div class = "progress-bar-percent">
+                  {{percentBarVal}} Complete
+                </div>
+              </div>
+              <div class = "form-main-container">
+                <div class = "form-container">                      
+                  <div class = "madlib">
+                    <form ng-submit = "submit()" novalidate>
+                    This competition will include
+                    <div class = "drop-choice">
+                      (<input type="text" class="drop-control" ng-change = "memberadd(members)" ng-model="members" placeholder = "members" />)
+                    </div>
+                    <div class = "mem-list-drop" id = "mem-list">
+                      <div class = "mem" ng-repeat= "option in containerDropList">
+                        <div style = "font-weight: 600;" id = "option" ng-click = "addMem(option)">
+                          {{option}}
+                        </div>
+                      </div>
+                      <div class = "mem" ng-repeat= "mem in memberDropList">
+                        <div id = "{{mem.Id}}" ng-click = "addMem(mem.Name, mem.Id)">
+                          {{mem.Name}}
+                        </div>
+                      </div>
+                    </div>
+                    <div id = "mem-drop-val">
+                      <div class = "memList" ng-repeat= "addedMem in divback">
+                        <div id = "{{addedMem.Id}}">
+                          <div class = "inline-member-list" ng-show= "(!$first)">
+                            ,
+                          </div>
+                          {{addedMem.member}}
+                          <div class = "xOut" id = "{{addedMem.Id}}x" ng-click = "deleteMember(addedMem.member)">
+                            [x]
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "nextWords">
+                      . The competition will be based on
+                    </div>
+                    <div class = "form-option">
+                      <div class = "form-input">
+                        <div class = "form-text-drop" ng-click="showValues('activity')">
+                          <div class = "form-text-drop-words" id = "activity-type">
+                            Activity Type
+                          </div>
+                          <div class = "form-text-drop-down" id = "reward-type-image">
+                            <img src= "http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-arrows/008056-glossy-black-icon-arrows-triangle-solid-down.png" height="40px;"></img>
+                          </div>
+                        </div>
+                        <div class = "form-chosen-drop-down" id = "activity">
+                          <div ng-click="dropValueChosen('Sales Calls', 'activity-type', 'activity');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Sales Calls
+                              </div>
+                            </div>
+                          </div>
+                          <div ng-click="dropValueChosen('Sales Emails', 'activity-type', 'activity');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Sales Emails
+                              </div>
+                            </div>
+                          </div>
+                          <div ng-click="dropValueChosen('Sales Activity', 'activity-type', 'activity');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Sales Activity
+                              </div>
+                            </div>
+                          </div>
+                          <div ng-click="dropValueChosen('Revenue Closed', 'activity-type', 'activity');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Revenue Closed
+                              </div>
+                            </div>
+                          </div>
+                          <div ng-click="dropValueChosen('Number of Converted Opptys', 'activity-type', 'activity');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Number of Converted Opportunities
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class = "nextWords" style = "padding-left: 10px;">
+                    and their goal will be to achieve 
+                    </div>
+                    <div class = "nextWords" ng-show = "(formVals.activityValue === 'Revenue Closed')">
+                      $
+                    </div>
+                    <div class = "drop-choice">
+                      <input type="text" class="drop-control" id = "field" ng-model="goal" ng-required="true" ng-change = "goalListen(goal)" placeholder = "goal" />
+                    </div>
+                    <div class = "nextWords">
+                      . The reward for the competition will be a 
+                    </div>
+                    <div class = "form-option">
+                      <div class = "form-input">
+                        <div class = "form-text-drop" ng-click="showValues('reward')">
+                          <div class = "form-text-drop-words" id = "reward-type">
+                            Reward Type
+                          </div>
+                          <div class = "form-text-drop-down" id = "reward-type-image">
+                            <img src= "http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-arrows/008056-glossy-black-icon-arrows-triangle-solid-down.png" height="40px;"></img>
+                          </div>
+                        </div>
+                        <div class = "form-chosen-drop-down" id = "reward">
+                          <div ng-click="dropValueChosen('Spiff', 'reward-type', 'reward');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Spiff
+                              </div>
+                            </div>
+                          </div>
+                          <div ng-click="dropValueChosen('Score', 'reward-type', 'reward');" >
+                            <div class = "form-chosen-option">
+                              <div class = "form-drop-text-spacing">
+                                Score
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class = "nextWords" ng-hide = "(formVals.baseOffNumberOfActivities === 'Yes')">
+                      <div class = "nextWords">
+                        . The reward for the competition is 
+                      </div>
+                      <div class = "drop-choice">
+                        <input type="text" class="drop-control" ng-change = "spiffListen(spiff)" id = "spiff-field" ng-model="spiff" ng-required="true" placeholder = "reward" />
+                      </div> 
+                      <div class = "nextWords">
+                      </div>
+                    </div>
+                    <div class = "nextWords" ng-show = "(formVals.rewardType === 'Score')">
+                      <div class = "nextWords">
+                        . The increase in score
+                      </div>
+                      <div class = "form-option">
+                        <div class = "form-input">
+                          <div class = "form-text-drop" ng-click="showValues('activities')">
+                            <div class = "form-text-drop-words" id = "number-of-activities">
+                              will/will not
+                            </div>
+                            <div class = "form-text-drop-down" id = "reward-type-image">
+                              <img src= "http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-arrows/008056-glossy-black-icon-arrows-triangle-solid-down.png" height="40px;"></img>
+                            </div>
+                          </div>
+                          <div class = "form-chosen-drop-down" id = "activities">
+                            <div ng-click="dropValueChosen('will', 'number-of-activities', 'activities');" >
+                              <div class = "form-chosen-option">
+                                <div class = "form-drop-text-spacing">
+                                  will
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-click="dropValueChosen('will not', 'number-of-activities', 'activities');" >
+                              <div class = "form-chosen-option">
+                                <div class = "form-drop-text-spacing">
+                                  will not
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                      <div class = "nextWords">
+                        be given per activity. 
+                      </div>
+                    </div>
+                    <div class = "nextWords" ng-show = "(formVals.baseOffNumberOfActivities === 'Yes')">
+                      <div class = "nextWords">
+                        The activity will be assigned 
+                      </div>
+                      <div class = "drop-choice">
+                        <input type="text" class="drop-control" id = "score-field" ng-change = "scoreListen(pointsPerActivity)" ng-model="pointsPerActivity" ng-required="true" placeholder = "points" />
+                      </div>
+                      <div class = "nextWords">
+                        points. 
+                      </div>
+                    </div>
+                    <div class = "nextWords">
+                      The competition will start on 
+                    </div>                    
+                    <div class = "calendar-choice">
+                      <div class = "calendar-field">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change = "startDateListen(startDate)" ng-model="startDate" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />                          
+                      </div>
+                      <div class = "calendar-button">
+                        <button type="button" class="btn btn-default cal-btn" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </div>
+                    </div>
+                    <!--
+                    <div class = "calendar-time">
+                      <div class = "calendar-field-time">
+                        <timepicker ng-model="startDateTime" ng-change="startTimeListen(startDateTime)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                      </div>
+                    </div>
+                  -->
+                    <div class = "nextWords">
+                      and end on  
+                    </div> 
+                    <div class = "calendar-choice">
+                      <div class = "calendar-field">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change = "endDateListen(endDate)"  ng-model="endDate" is-open="openedSecond" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                      </div>
+                      <div class = "calendar-button">
+                        <button type="button" class="btn btn-default cal-btn" ng-click="openSecond($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </div>
+                    </div>
+                    <!--
+                    <div class = "calendar-time">
+                      <div class = "calendar-field-time">
+                        <timepicker ng-model="endDateTime" ng-change="endTimeListen(endDateTime)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                      </div>
+                    </div>
+                  -->
+                    <div class = "nextWords">
+                      .
+                    </div>
+                    <br></br>
+                    <div class = "nextWords">
+                      Additional details: 
+                    </div>
+                    <div class = "drop-choice">
+                      <textarea class="drop-control" id = "field-descript" ng-change = "updateDescripLength(); descriptionListen(description);" ng-model="description" ng-required="true" placeholder = "description.." /></textarea>
+                    </div> 
+                  </div>
+                </div>  
+              </div>
+              <div class = "form-main-container">
+                <div class = "form-container">  
+                  <div class = "form-results-container">
+                    <div class = "form-title-header">
+                      Competition Values:
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Members
+                      </div>
+                      <div class = "form-value-field">
+                        <div class = "inline-member-list" ng-repeat= "mem in divback" ng-init="id1 = $index">
+                          <div class = "inline-member-list" ng-show= "(!$first)">
+                            ,
+                          </div>
+                          {{mem.member}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Activity Type:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.activityValue}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Goal:
+                      </div>
+                      <div class = "form-value-field">
+                        {{goal}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Reward Type:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.rewardType}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container" ng-show = "(formVals.rewardType === 'Spiff')">
+                      <div class = "form-value-title">
+                        Spiff:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.spiff}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container" ng-show = "(formVals.rewardType === 'Score')">
+                      <div class = "form-value-title">
+                        Increase Score Per Activity:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.baseOffNumberOfActivities}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container" ng-show = "(formVals.baseOffNumberOfActivities === 'Yes')">
+                      <div class = "form-value-title">
+                        Increase Score By:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.pointsPerActivity}}
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Start Date:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.startDate}} {{formVals.startTime}} PDT
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        End Date:
+                      </div>
+                      <div class = "form-value-field">
+                        {{formVals.endDate}} {{formVals.endTime}} PDT
+                      </div>
+                    </div>
+                    <div class = "form-value-container">
+                      <div class = "form-value-title">
+                        Description:
+                      </div>
+                      <div class = "form-value-field">
+                        {{description}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input type="submit" id="submit" value="Submit" />
+           </form>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

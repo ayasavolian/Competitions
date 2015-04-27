@@ -1,0 +1,22 @@
+<div class = "personal-dial-dashboard-container">
+  <div class = "personal-dial-dashboard-member" ng-repeat = "teamMember in myTeam">
+    <div class = "personal-dial-member-name">
+      {{teamMember.Name}}
+    </div>
+    <div class = "personal-dial-title">
+      COMPLETION PERCENTAGE
+    </div>
+    <div class = "personal-dial-completion-percentage">
+    </div>
+    <div class = "personal-dial">
+    </div>
+    <div class = "personal-dial-dashboard-info">
+      <div style = "margin-bottom: 0px;" class = "personal-dial-title">
+        TRENDING
+      </div>
+      <div class = "personal-dial-completion-stars">
+        <img id = "flame-dashboard-image" ng-src="{{teamMember.Flames == '1' && 'images/flameon1.png' || teamMember.Flames == '2' && 'images/flameon2.png' || teamMember.Flames == '3' && 'images/flameon3.png' || 'images/flameon0.png'}}"/>
+      </div>
+    </div>
+  </div>
+</div>
