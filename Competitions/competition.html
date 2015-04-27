@@ -291,6 +291,11 @@
                     My Team's Dashboard
                   </div>
                   <personal-dashboard></personal-dashboard>
+                  <div style = "margin-top: 40px;" class = "competition-chart-container">
+                    <div class = "single-comp-chart-container">
+                      <team-chart style = "margin-left: 25px; height: 400px;" class = "competition-chart" ng-model='compData'></team-chart>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -305,7 +310,7 @@
                 <div class = "competition-chart-container">
                   <updatey-ticks></updatey-ticks>
                   <div class="single-comp-chart-container" id = "comp-chart-container">
-                    <comp-chart class = "competition-chart" ng-model='compData'></comp-chart>    
+                    <comp-chart class = "competition-chart" ng-model='teamData'></comp-chart>    
                   </div>
                 </div>
                 <updatex-ticks></updatex-ticks>

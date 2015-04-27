@@ -1216,12 +1216,12 @@ input[type=submit]{
   display: inline-block;
   text-align: center;
   margin-top: 25px;
+  margin-bottom: 25px;
 }
 .personal-dial-dashboard-member{
   display: inline-block;
   text-align: center;
   width: 28%;
-  height: 300px;
 }
 .personal-dial{
   display: inline-block;
@@ -1240,6 +1240,28 @@ input[type=submit]{
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
+}
+.personal-dial-completion-percentage{
+  width: 104px;
+  height: 66px;
+  position: absolute;
+  vertical-align: middle;
+  margin-top: 126px;
+  /* margin-left: -152px; */
+  margin-left: 130px;
+  border: 0px;
+  font-weight: 200;
+  font-style: normal;
+  font-variant: normal;
+  font-stretch: normal;
+  font-size: 16px;
+  line-height: normal;
+  font-family: Arial;
+  text-align: center;
+  color: #808080;
+  padding: 0px;
+  -webkit-appearance: none;
+  background: none;
 }
 /*
 .tickLabel{

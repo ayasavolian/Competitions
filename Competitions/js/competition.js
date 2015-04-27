@@ -29,6 +29,7 @@
       $scope.compType = '';
       $scope.myTeam = [];
       $scope.managerName = $rootScope.currentUser[0].Name;
+      $scope.teamCompXAxis = [];
       //determines if the user is a manager or not, and the viewing privileges they get
       $scope.userIsManager = true;
       $scope.selectOption = function(optionPassed){
@@ -127,9 +128,6 @@
               return true;
             else
               return false;
-          });
-          $scope.myTeam.forEach(function(val){
-            console.log(val);
           });
         }
         /*
@@ -239,7 +237,7 @@
         {
             label: 'John Andersons Team',
             data: otherEmployees,
-            color: '#808080',
+            color: '#ff4866',
             lines: {show: true }
         },
         {
@@ -251,7 +249,7 @@
         {
             label: 'Average',
             data: team3Employees,
-            color: '#ff4866',
+            color: '#808080',
             lines: {show: true }
         }
     ];      
@@ -295,8 +293,71 @@
           bars: { show: true, 'align': "center", 'barWidth':0.8}
         }
       ];
-      $scope.compData = compDataPassed;     
+      $scope.compData = compDataPassed;  
+
+      $scope.teamCompetitionDash();   
     }
+
+    $scope.teamCompetitionDash = function(){
+      function returnMyTeam(mem){
+        if(mem.Manager_Name === $scope.managerName)
+          return true;
+        else
+          return false; 
+      }
+      function returnPercentComplete(value){
+        return value.Completion_Percentage;
+      }
+      function teamAverage(array){
+        function plus(a,b){
+          console.log(a,b);
+          return a + b;
+        }
+        return Math.floor(array.reduce(plus) / array.length);
+      }
+      var tempMyTeamCompData = $scope.chosenCompetitionRecordMembers.filter(returnMyTeam);
+      var tempMyTeamCompData = tempMyTeamCompData.map(returnPercentComplete);
+      var myTeamCompData = teamAverage(tempMyTeamCompData);
+
+      var myTeamCompArray = [];
+      var secondTeamCompArray = [];
+      var thirdTeamCompArray = [];
+      var averageTeamCompArray = [];
+
+      $scope.teamCompXAxis.push([0, 'Arrash Yasavolians Team'], [1, 'John Andersons Team'], [2, 'Peter Gilligans Team'], [3, 'Average'])
+
+      myTeamCompArray.push([0, myTeamCompData]);
+      secondTeamCompArray.push([1, 47]);
+      thirdTeamCompArray.push([2, 57]);
+      averageTeamCompArray.push([3, 52]);
+      $scope.teamData = [
+        {
+          label : 'Arrash Yasavolians Team',
+          data : myTeamCompArray,
+          color: '#6bd16b',
+          bars: { show: true, align: 'left', 'barWidth':0.6}
+        },
+        {
+          label : 'John Andersons Team',
+          data : secondTeamCompArray,
+          color: '#ff4866',
+          bars: { show: true, align: 'left', 'barWidth':0.6}
+        },
+        {
+          label : 'Peter Gilligans Team',
+          data : thirdTeamCompArray,
+          color: '#2f80e7',
+          bars: { show: true, align: 'left', 'barWidth':0.6}
+        },
+        {
+          label : 'Average',
+          data : averageTeamCompArray,
+          color: '#505050',
+          bars: { show: true, align: 'left', 'barWidth':0.6}
+        }
+      ]
+    }
+
       //$scope.showGraphs();
       $scope.selectOption('currentCompetition');
       //updateCompetitionsList();
@@ -472,6 +533,68 @@
                     readOnly : true
                   });
               });         
+              }
+            });
+          }
+      };
+  });
+
+  app.directive('teamChart', function(){
+      return{
+          restrict: 'E',
+          link: function(scope, elem, attrs){
+              scope.$watch('teamData', function(v){
+              if(scope.compData != null){
+              var teamChart = null,
+                  options = {
+                  legend: {
+                    noColumns: 0,
+                    position: "ne",
+                  },
+                  axisLabels: {
+                    show: false
+                  },
+                  /*
+                  xaxes: [{
+                    axisLabel: 'Competition Member',
+                  }],
+                  yaxes: [{
+                    position: 'left',
+                    axisLabel: 'Value',
+                  }],
+                  */
+                  xaxis: {
+                      ticks: scope.teamCompXAxis
+                      //tickFormatter: function(val, axis) { return  'hi'}
+                  },
+                  
+                  yaxis: {
+                    min:0, 
+                    max: 100,
+                    ticks: 5 /*function(axis){ return axis.max < 5 ? [1,2,3,4,5] : [1,2,3,4,5]; }*/, 
+
+                    tickFormatter: function(val, axis) { return   val+ '%'}
+                  },
+                  grid:{
+                    labelMargin: 40,
+                    backgroundColor: '#f5f5f5',
+                    color: '#c2c2c2',
+                    borderColor: null
+                  }
+                };
+                      
+              var data = scope[attrs.ngModel];            
+              // If the data changes somehow, update it in the chart
+                    teamChart = $.plot(elem, v , options);
+                    elem.show();
+                    teamChart.setData(v);
+                    teamChart.setupGrid();
+                    teamChart.draw();
+              /*
+              compChartHeight = $("#comp-chart-container").css('height');
+              compChartWidth = $("#comp-chart-container").css('width');
+              $('.competition-chart').css({'width': compChartWidth, 'height': compChartHeight});   
+              */             
               }
             });
           }
